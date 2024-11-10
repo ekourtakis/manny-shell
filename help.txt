@@ -1,0 +1,62 @@
+MANNY SHELL (or MSH)
+by Emmanuel Kourtakis
+
+COMMANDS
+
+cd [path]
+changes the working directory to the absolute or relative path given as an argument
+
+exit [void]
+exits out of the shell progrom, banishing you from whence you came
+
+help [void]
+prints helpful information about the shell to the terminal, including a description of every built in function
+
+pwd [void]
+prints the currect working directory to the terminal
+
+wait [void]
+waits until all background processes are finished before returning to shell. see BACKGROUND PROCESSES section for more info
+
+EXTERNAL COMMANDS
+
+msh will execute any external commands in your system. make sure the commands you want to run are in your system's PATH
+
+REDIRECTION
+
+when calling an external function, you can redirect the input or output to a another file using "<" or ">" respectively. for example:
+    > wc < example > output
+will call wc, use example as the input, and output the output to output.
+this command could also be called (producing the same output) with:
+    > wc > output < example
+
+PIPING
+
+ supports piping the input and output of a command. use:
+    > command1 args1 | command2 args2
+to pipe the output of command1 to the input of command2
+
+msh supports an indefinite number of pipes. for example, use:
+    > ls | grep shell | cat | wc
+to pipe ls' output to grep's input (which searches for the word "shell"), into cat, into wc, giving you the count of the occurences 
+of "shell" in your current directory's filenames
+
+one can use redirection and pipes at the same time. for example:
+    > grep foo < bar.txt | cat > output
+will redirect grep's in to bar.txt, pipe that to cat's input, and redirect cat's output the file output
+
+BACKGROUND PROCESSES
+
+when giving and individual command, give "&" at the end of the line to run process in background. i.e.,
+    > command arg0 arg1 arg2 ... argN &
+will run command in the background, allowing you to continue giving commands to msh while command runs. the shell will print:
+    process xxxxxxxx in background
+the shell will then notify you when the process is finished by printing:
+    process xxxxxxxx finished
+press return to return to the command line
+and unlimited number of bakcground processes can be run concurrently
+use in-built wait command to wait until all background processes are finished before returning to msh command line
+one can use redirection with background processes but not piping
+
+SUPPORT
+There is no support for this. Good luck.
